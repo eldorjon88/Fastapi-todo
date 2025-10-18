@@ -11,12 +11,6 @@ class UserOut(BaseModel):
 
 
 
-
-
-
-
-
-
 from pydantic import BaseModel, EmailStr
 from datetime import date
 from enum import Enum
