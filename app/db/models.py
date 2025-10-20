@@ -3,16 +3,10 @@ from sqlalchemy.orm import relationship
 from enum import Enum as PyEnum
 from app.db.database import Base
 
-# ------------------------------------------------------------
-# USER ROLE ENUM
-# ------------------------------------------------------------
 class UserRole(PyEnum):
     admin = "admin"
     user = "user"
 
-# ------------------------------------------------------------
-# USER MODEL
-# ------------------------------------------------------------
 class User(Base):
     __tablename__ = "users"
     __table_args__ = {'extend_existing': True}
@@ -25,12 +19,8 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     role = Column(Enum(UserRole), default=UserRole.user)
 
-    # relationship
     tasks = relationship("Task", back_populates="user")
 
-# ------------------------------------------------------------
-# TASK MODEL
-# ------------------------------------------------------------
 class Task(Base):
     __tablename__ = "tasks"
     __table_args__ = {'extend_existing': True}
@@ -42,5 +32,4 @@ class Task(Base):
     priority = Column(Integer, default=3)
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    # relationship
     user = relationship("User", back_populates="tasks")
